@@ -1,0 +1,13 @@
+#vim swap files
+.*.swp
+
+# Ignore Mercurial files pulled down by go get
+.hg
+
+pkg
+bin
+.sass-cache
+node_modules
+
+cache.json
+data/

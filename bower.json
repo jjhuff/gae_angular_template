@@ -1,0 +1,25 @@
+{
+  "name": "gae_angular_example",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "angular": "1.2.23",
+    "jquery": "2.1.0",
+    "underscore": "~1.6.0",
+    "angular-resource": "1.2.23",
+    "angular-cookies": "1.2.23",
+    "angular-sanitize": "1.2.23",
+    "angular-ui-bootstrap-bower": "~0.10.0",
+    "angular-busy": "~4.0.4",
+    "sass-bootstrap": "3.0.2",
+    "angular-ui-router": "~0.2.11",
+    "angular-md5": "~0.1.7"
+  },
+  "overrides": {
+    "angular-busy": {
+      "dependencies": {
+        "angular": "~1.2"
+      }
+    }
+  }
+}

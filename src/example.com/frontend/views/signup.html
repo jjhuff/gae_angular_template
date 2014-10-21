@@ -1,0 +1,40 @@
+<div ng-controller="SignUpCtrl" cg-busy="promise">
+    <h1>Sign Up</h1>
+    <form novalidate class="form-horizontal" role="form" name="form">
+        <div class="form-group"  ng-class="{'has-error': form.email.showError && form.email.$invalid}">
+            <label class="col-sm-2 control-label" for="registerEmail">Email</label>
+            <div class="col-sm-4">
+                <input type="email" class="form-control" id="registerEmail" name="email" ng-model="email" required autofocus >
+            </div>
+            <p class="help-block error" ng-show="form.email.hasVisited && form.email.$error.email">This email doesn't seem to be valid</p>
+        </div>
+        <div class="form-group"  ng-class="{'has-error': form.email_conf.showError && form.email_conf.$invalid}">
+            <label class="col-sm-2 control-label" for="registerEmailConf">Email (again)</label>
+            <div class="col-sm-4">
+                <input type="email" class="form-control" id="registerEmailConf" name="email_conf" ng-model="email_conf" required match="email">
+            </div>
+            <p class="help-block error" ng-show="form.email_conf.hasVisited && form.email_conf.$error.match">Emails don't match</p>
+        </div>
+
+        <div class="form-group"  ng-class="{'has-error': form.password.showError && form.password.$invalid}">
+            <label class="col-sm-2 control-label" for="registerPassword">Password</label>
+            <div class="col-sm-4">
+                <input type="password" class="form-control" id="registerPassword" name="password" ng-model="password" ng-minlength="7" required>
+            </div>
+            <p class="help-block error" ng-show="form.password.hasVisited && form.password.$error.minlength">Password is too short (minimum is 7 characters)</p>
+        </div>
+        <div class="form-group"  ng-class="{'has-error': form.password_conf.showError && form.password_conf.$invalid}">
+            <label class="col-sm-2 control-label" for="registerPasswordConf">Password (again)</label>
+            <div class="col-sm-4">
+                <input type="password" class="form-control" id="registerPasswordConf" name="password_conf" ng-model="password_conf" required match="password">
+            </div>
+            <p class="help-block error" ng-show="form.password_conf.hasVisited && form.password_conf.$error.match">Passwords don't match</p>
+        </div>
+
+         <div class="alert alert-danger" ng-show="error==409">This email address is already in use.</div>
+         <div class="alert alert-warning" ng-show="error && error!=409">Unknown Error. Please try again.</div>
+
+         <button class="btn btn-primary btn-lg" ng-click="register()" ng-disabled="form.$invalid">Register</button>
+         <button class="btn btn-default btn-lg" ng-click="randUser()" ng-if="randUser">Random</button>
+    </form>
+</div>

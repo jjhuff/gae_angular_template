@@ -1,0 +1,23 @@
+application: example-qa
+module: default
+version: 1
+runtime: go
+api_version: go1
+automatic_scaling:
+  min_idle_instances: 0
+  max_idle_instances: automatic  # default value
+  min_pending_latency: automatic  # default value
+  max_pending_latency: 100ms
+  max_concurrent_requests: 50
+
+handlers:
+    - url: /robots.txt
+      static_files: static/robots-qa.txt
+      upload: static/robots-qa.txt
+
+    - url: /.*
+      script: _go_app
+      #secure: always
+
+includes:
+    - app-common.yaml

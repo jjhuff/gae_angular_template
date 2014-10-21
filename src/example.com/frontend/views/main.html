@@ -1,0 +1,13 @@
+<div ng-controller="MainCtrl" class="main">
+    <h1>GAE + Angular exmaple</h1>
+
+    <div ng-show="!isLoggedIn()">
+        <h2>Welcome to the site</h2>
+        <p>Nobody is logged in</p>
+    </div>
+
+    <div ng-show="isLoggedIn()">
+      <h2>Welcome user!</h2>
+
+    </div>
+</div>

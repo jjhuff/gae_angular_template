@@ -1,0 +1,80 @@
+<!doctype html>
+<html class="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>GAE Example</title>
+        <meta name="description" content="">
+        <meta http-equiv="content-language" content="en-us">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <base href="/" />
+
+        {{ if .Config.Minified }}
+        <link rel="stylesheet" href="/_/build/{{ static "main.min.css" }}">
+        {{ else }}
+        <link rel="stylesheet" href="/_/build/main.css">
+        {{ end }}
+
+        <!--<link href='//fonts.googleapis.com/css?family=Josefin+Sans:400,700|Open+Sans' rel='stylesheet' type='text/css'>-->
+
+        {{ if .User }}
+        <script type="text/javascript">
+            var ct_user = {{.User}};
+        </script>
+        {{ end }}
+    </head>
+
+    <body ng-app="app">
+        <div ng-include="'/_/views/header.html'"></div>
+        <div class="container" ui-view=""></div>
+        <div ng-include="'/_/views/footer.html'"></div>
+
+        <!-- Google Analytics -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            {{ if .Config.GoogleAnalyticsID }}
+            ga('create', '{{.Config.GoogleAnalyticsID}}');
+            {{ end }}
+        </script>
+        
+        {{ if .Config.Minified }}
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+        <script src="/_/build/{{ static "lib.min.js" }}"></script>
+        <script src="/_/build/{{ static "app.min.js" }}"></script>
+
+        {{ else }}
+        <script src="/_/vendor/angular/angular.js"></script>
+        <script src="/_/vendor/underscore/underscore.js"></script>
+        <script src="/_/vendor/angular-resource/angular-resource.js"></script>
+        <script src="/_/vendor/angular-cookies/angular-cookies.js"></script>
+        <script src="/_/vendor/angular-sanitize/angular-sanitize.js"></script>
+        <script src="/_/vendor/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="/_/vendor/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
+        <script src="/_/vendor/angular-busy/angular-busy.js"></script>
+        <script src="/_/vendor/angular-md5/angular-md5.js"></script>
+
+        <script src="/_/scripts/app.js"></script>
+        <script src="/_/scripts/directives/match.js"></script>
+        <script src="/_/scripts/directives/formblur.js"></script>
+        <script src="/_/scripts/directives/showerror.js"></script>
+        <script src="/_/scripts/services/user.js"></script>
+        <script src="/_/scripts/controllers/main.js"></script>
+        <script src="/_/scripts/controllers/header.js"></script>
+        <script src="/_/scripts/controllers/signup.js"></script>
+        <script src="/_/scripts/controllers/signin.js"></script>
+        <script src="/_/scripts/controllers/settings.js"></script>
+        <script src="/_/scripts/controllers/forgot_password.js"></script>
+        {{ end }}
+
+        <script>
+            angular.module('app').value('Config',{
+                showRegisterRandom: {{ .Config.ShowRegisterRandom }},
+            });
+        </script>
+    </body>
+</html>

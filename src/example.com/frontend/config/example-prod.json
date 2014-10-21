@@ -1,0 +1,8 @@
+{
+    "google_analytics_id": "UA-xxx-x",
+    "minified": true,
+    "show_register_random": false,
+    "prerender_cache_bucket": "prerender-prod.example.com",
+    "prerender_server": "http://service.prerender.io/",
+    "prerender_token": "XXXXXX"
+}

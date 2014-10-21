@@ -1,0 +1,27 @@
+application: example-prod
+module: default
+version: 1
+runtime: go
+api_version: go1
+automatic_scaling:
+  min_idle_instances: 0
+  max_idle_instances: automatic  # default value
+  min_pending_latency: automatic  # default value
+  max_pending_latency: 100ms
+  max_concurrent_requests: 50
+
+handlers:
+    - url: /robots.txt
+      static_files: static/robots-prod.txt
+      upload: static/robots-prod.txt
+
+    - url: /sitemap.xml
+      static_files: static/sitemap.xml
+      upload: static/sitemap.xml
+
+    - url: /.*
+      script: _go_app
+      #secure: always
+
+includes:
+    - app-common.yaml

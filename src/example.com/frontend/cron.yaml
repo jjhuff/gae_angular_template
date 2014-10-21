@@ -1,0 +1,5 @@
+cron:
+    #- description: check for runnable jobs
+    #  url: /ping
+    #  target: cron-runner
+    #  schedule: every 5 minutes synchronized

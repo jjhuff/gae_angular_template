@@ -1,0 +1,31 @@
+skip_files:
+    - ^(.*/)?#.*#$
+    - ^(.*/)?.*~$
+    - ^(.*/)?.*\.py[co]$
+    - ^(.*/)?\..*$
+    - ^vendor/.*$
+
+handlers:
+    - url: /_/build
+      static_dir: build
+      #secure: always
+      application_readable: true
+      expiration: 365d
+          
+    - url: /_/images
+      static_dir: images
+      #secure: always
+
+    - url: /_/fonts
+      static_dir: fonts
+      #secure: always
+
+    - url: /_/api/.*
+      script: _go_app
+      #secure: always
+
+    - url: /favicon.ico
+      static_files: static/favicon.ico
+      upload: static/favicon.ico
+      expiration: 1d
+

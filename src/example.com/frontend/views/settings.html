@@ -1,0 +1,58 @@
+<div ng-controller="SettingsCtrl" class="settings" cg-busy="promise">
+    <h2>Account Settings</h2>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Change Email</h3>
+        </div>
+        <div class="panel-body">
+            <form novalidate role="form" name="emailForm">
+                <div class="form-group">
+                    <label for="currentEmail">Current Email</label>
+                    <p id="currentEmail" class="form-control-static">{{current_email}}</p>
+                </div>
+                <div class="form-group"  ng-class="{'has-error': emailForm.email.showError && emailForm.email.$invalid}">
+                    <label for="updateEmail">Email</label>
+                    <input type="email" class="form-control" id="updateEmail" name="email" ng-model="email" required autofocus >
+                    <span class="help-block error" ng-show="emailForm.email.hasVisited && emailForm.email.$error.email">This email doesn't seem to be valid</span>
+                </div>
+                <div class="form-group"  ng-class="{'has-error': emailForm.email_conf.showError && emailForm.email_conf.$invalid}">
+                    <label for="updateEmailConf">Email (again)</label>
+                    <input type="email" class="form-control" id="updateEmailConf" name="email_conf" ng-model="email_conf" required match="email">
+                    <span class="help-block error" ng-show="emailForm.email_conf.hasVisited && emailForm.email_conf.$error.match">Emails don't match</span>
+                </div>
+
+                <div class="alert alert-danger" ng-show="emailForm.error==409">This email address is already in use.</div>
+                <div class="alert alert-warning" ng-show="emailForm.error && emailForm.error!=409">Unknown Error. Please try again.</div>
+                <button class="btn btn-primary btn-lg" ng-click="saveEmail()" ng-disabled="emailForm.$invalid">Update Email</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Change Password</h3>
+        </div>
+        <div class="panel-body">
+            <form novalidate role="form" name="passwordForm">
+                <div class="form-group">
+                    <label for="updatePasswordOld">Old Password</label>
+                    <input type="password" class="form-control" id="updatePasswordOld" ng-model="pass.old" required>
+                </div>
+                <div class="form-group"  ng-class="{'has-error': passwordForm.password.showError && passwordForm.password.$invalid}">
+                    <label for="updatePassword">New Password</label>
+                    <input type="password" class="form-control" id="updatePassword" name="password" ng-model="pass.new" ng-minlength="7" required>
+                    <span class="help-block error" ng-show="passwordForm.password.hasVisited && passwordForm.password.$error.minlength">Password is too short (minimum is 7 characters)</span>
+                </div>
+                <div class="form-group"  ng-class="{'has-error': passwordForm.password_conf.showError && passwordForm.password_conf.$invalid}">
+                    <label for="updatePasswordConf">New Password (again)</label>
+                    <input type="password" class="form-control" id="updatePasswordConf" name="password_conf" ng-model="pass.new_conf" required match="pass.new">
+                    <span class="help-block error" ng-show="passwordForm.password_conf.hasVisited && passwordForm.password_conf.$error.match">Passwords don't match</span>
+                </div>
+
+                <div class="alert alert-danger" ng-show="passwordForm.error==403">Invalid password.</div>
+                <div class="alert alert-warning" ng-show="passwordForm.error && passwordForm.error!=403">Unknown Error. Please try again.</div>
+                <button class="btn btn-primary btn-lg" ng-click="savePassword()" ng-disabled="passwordForm.$invalid">Update Password</button>
+            </form>
+        </div>
+</div>
