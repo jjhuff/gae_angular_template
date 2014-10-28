@@ -2,8 +2,11 @@
   "name": "gae_angular_example",
   "description": "gae_angular_example",
   "version": "0.0.1",
+  "scripts": {
+    "postinstall": "bower install --config.interactive=false"
+  },
   "devDependencies": {
-    "gulp": "~3.6.2",
+    "gulp": ">=3.8.9",
     "gulp-concat": "~2.2.0",
     "gulp-uglify": "~0.3.0",
     "gulp-size": "~0.3.1",

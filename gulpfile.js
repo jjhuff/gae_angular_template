@@ -38,7 +38,7 @@ var paths = {
     styles: {
         src: './src/example.com/frontend/styles/*.scss',
         dest: './src/example.com/frontend/build/',
-        sass: './src/example.com/frontend/styles/',
+        sass: 'src/example.com/frontend/styles/',
         import_path: ['./src/example.com/frontend/vendor']
     },
     ae_extra: './src/example.com/frontend/',
