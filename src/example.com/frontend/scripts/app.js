@@ -50,6 +50,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
 app.run(['$rootScope', '$state', 'User', function ($rootScope, $state, User) {
     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
         if (toState.loginRequired && !User.isLoggedIn()) {
+            event.preventDefault();
             $state.go("login");
         }
     });
