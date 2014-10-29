@@ -140,7 +140,7 @@ gulp.task('server', ['watch'], function(){
 });
 
 gulp.task('deploy:qa', ['build'], function(){
-    var appcfg = 'appcfg.py --oauth2 -A exmaple-qa ';
+    var appcfg = 'appcfg.py --oauth2 -A example-qa ';
     gulp.src('').pipe(shell([
         appcfg + 'update_queues ' + paths.ae_extra,
         appcfg + 'update_cron ' + paths.ae_extra,
