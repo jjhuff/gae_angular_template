@@ -59,44 +59,22 @@ app.run(['$rootScope', '$state', 'User', function ($rootScope, $state, User) {
 
 // Intercept 401 errors and send to login page
 app.config(['$httpProvider', function ($httpProvider) {
-  $httpProvider.interceptors.push(['$q', function($q) {
-    return {
-      'response': function(response) {
-        return response;
-      },
-      'responseError': function(response) {
-        if (response.status === 401) {
-          $injector.get('$state').$state.go('login');
-          return $q.reject(response);
-        } else {
-          return $q.reject(response);
+    $httpProvider.interceptors.push(['$q', function($q) {
+        return {
+            'response': function(response) {
+                return response;
+            },
+            'responseError': function(response) {
+                if (response.status === 401) {
+                    $injector.get('$state').$state.go('login');
+                    return $q.reject(response);
+                } else {
+                    return $q.reject(response);
+                }
+            }
         }
-      }
-    }
-  }]);
+    }]);
 }]);
-        // var interceptor = ['$q', function($q) {
-        //     function success(response) {
-        //         return response;
-        //     }
-        //
-        //     function error(response) {
-        //         if(response.status === 401) {
-        //             $injector.get('$state').$state.go('login');
-        //             return $q.reject(response);
-        //         }
-        //         else {
-        //             return $q.reject(response);
-        //         }
-        //     }
-        //
-        //     return function(promise) {
-        //         return promise.then(success, error);
-        //     };
-        // }];
-        //
-        // $httpProvider.responseInterceptors.push(interceptor);
-
 
 
 app.filter('encodeUri', ['$window', function ($window) {
