@@ -41,7 +41,7 @@
             ga('create', '{{.Config.GoogleAnalyticsID}}');
             {{ end }}
         </script>
-        
+
         {{ if .Config.Minified }}
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
         <script src="/_/build/{{ static "lib.min.js" }}"></script>
@@ -49,12 +49,12 @@
 
         {{ else }}
         <script src="/_/vendor/angular/angular.js"></script>
-        <script src="/_/vendor/underscore/underscore.js"></script>
+        <script src="/_/vendor/lodash/dist/lodash.js"></script>
         <script src="/_/vendor/angular-resource/angular-resource.js"></script>
         <script src="/_/vendor/angular-cookies/angular-cookies.js"></script>
         <script src="/_/vendor/angular-sanitize/angular-sanitize.js"></script>
         <script src="/_/vendor/angular-ui-router/release/angular-ui-router.js"></script>
-        <script src="/_/vendor/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
+        <script src="/_/vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="/_/vendor/angular-busy/angular-busy.js"></script>
         <script src="/_/vendor/angular-md5/angular-md5.js"></script>
 

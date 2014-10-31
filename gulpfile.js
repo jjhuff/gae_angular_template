@@ -39,7 +39,7 @@ var paths = {
         src: './src/example.com/frontend/styles/*.scss',
         dest: './src/example.com/frontend/build/',
         sass: 'src/example.com/frontend/styles/',
-        import_path: ['./src/example.com/frontend/vendor']
+        import_path: ['./src/example.com/frontend/vendor/bootstrap-sass-official/assets/stylesheets']
     },
     ae_extra: './src/example.com/frontend/',
     ae_yaml: {
