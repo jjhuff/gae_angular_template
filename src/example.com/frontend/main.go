@@ -134,7 +134,10 @@ func allowPreRender(handler http.HandlerFunc) http.HandlerFunc {
 					http.Error(w, err.Error(), http.StatusInternalServerError)
 					return
 				}
-				proxyReq.Header.Add("X-Prerender-Token", config.Get(ctx).PrerenderToken) // in case we're using prerender.io
+				prerenderToken := config.Get(ctx).PrerenderToken
+				if prerenderToken != "" {
+					proxyReq.Header.Add("X-Prerender-Token", config.Get(ctx).PrerenderToken) // in case we're using prerender.io
+				}
 				proxyReq.Header.Add("User-Agent", req.Header.Get("User-Agent"))
 				resp, err = client.Do(proxyReq)
 				if err != nil {
