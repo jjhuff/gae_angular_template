@@ -2,8 +2,6 @@ package config
 
 import (
 	"appengine"
-	"encoding/json"
-	"os"
 	"sync"
 )
 
@@ -16,25 +14,48 @@ type Config struct {
 	ShowRegisterRandom   bool   `json:"show_register_random"`
 }
 
-var config_once sync.Once
-var config *Config
+var configs = map[string]Config{
+	"example-prod": Config{
+		PrerenderCacheBucket: "prerender-prod.example.com",
+		PrerenderServer:      "http://service.prerender.io/",
+		PrerenderToken:       "XXXX",
+		GoogleAnalyticsID:    "UA-XXXX-1",
+		Minified:             true,
+		ShowRegisterRandom:   false,
+	},
+	"example-qa": Config{
+		PrerenderCacheBucket: "prerender-qa.example.com",
+		PrerenderServer:      "http://service.prerender.io/",
+		PrerenderToken:       "XXXX",
+		GoogleAnalyticsID:    "UA-XXXX-2",
+		Minified:             true,
+		ShowRegisterRandom:   true,
+	},
+	"example-dev": Config{
+		PrerenderCacheBucket: "prerender-qa.example.com",
+		PrerenderServer:      "http://service.prerender.io/",
+		PrerenderToken:       "XXXX",
+		GoogleAnalyticsID:    "",
+		Minified:             false,
+		ShowRegisterRandom:   true,
+	},
+	"testapp": Config{
+		PrerenderCacheBucket: "testbucket",
+		PrerenderServer:      "",
+		PrerenderToken:       "",
+		GoogleAnalyticsID:    "",
+		Minified:             false,
+		ShowRegisterRandom:   true,
+	},
+}
+
+var appid_once sync.Once
+var appid string
 
 func Get(ctx appengine.Context) Config {
-	config_once.Do(func() {
-		fileName := "config/" + appengine.AppID(ctx) + ".json"
+	appid_once.Do(func() {
+		appid = appengine.AppID(ctx)
 
-		config = &Config{}
-
-		f, err := os.Open(fileName)
-		if err != nil {
-			ctx.Warningf("Missing config file: %s", fileName)
-		} else {
-			ctx.Infof("Loading config: %s", fileName)
-			jsonParser := json.NewDecoder(f)
-			if err = jsonParser.Decode(config); err != nil {
-				ctx.Errorf("Failed to parse config file: %s", err.Error())
-			}
-		}
 	})
-	return *config
+	return configs[appid]
 }
