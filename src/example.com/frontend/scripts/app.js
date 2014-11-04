@@ -10,7 +10,7 @@ var app = angular.module('app', [
   'cgBusy'
 ]);
 
-app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode(true).hashPrefix('!');
     $urlRouterProvider.otherwise("/");
     $stateProvider
@@ -43,23 +43,23 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
         templateUrl: '/_/views/settings.html',
         loginRequired: true,
     })
-}]);
+});
 
 
 // If a path is flagged as login required, require it
-app.run(['$rootScope', '$state', 'User', function ($rootScope, $state, User) {
+app.run(function ($rootScope, $state, User) {
     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
         if (toState.loginRequired && !User.isLoggedIn()) {
             event.preventDefault();
             $state.go("login");
         }
     });
-}]);
+});
 
 
 // Intercept 401 errors and send to login page
-app.config(['$httpProvider', function ($httpProvider) {
-    $httpProvider.interceptors.push(['$q', function($q) {
+app.config(function ($httpProvider) {
+    $httpProvider.interceptors.push(function($q) {
         return {
             'response': function(response) {
                 return response;
@@ -73,13 +73,13 @@ app.config(['$httpProvider', function ($httpProvider) {
                 }
             }
         }
-    }]);
-}]);
+    });
+});
 
 
-app.filter('encodeUri', ['$window', function ($window) {
+app.filter('encodeUri', function ($window) {
     return $window.encodeURIComponent;
-}]);
+});
 
 angular.module('app').value('cgBusyDefaults',{
     templateUrl: '/_/views/angular-busy.html',
@@ -88,8 +88,8 @@ angular.module('app').value('cgBusyDefaults',{
 });
 
 // Process analytics pageviews
-app.run(['$rootScope', '$location', function ($rootScope, $location) {
+app.run(function ($rootScope, $location) {
     $rootScope.$on('$viewContentLoaded', function(){
         ga('send', 'pageview', $location.path());
     });
-}]);
+});

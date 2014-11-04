@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var size = require('gulp-size');
@@ -39,7 +40,7 @@ var paths = {
         src: './src/example.com/frontend/styles/*.scss',
         dest: './src/example.com/frontend/build/',
         sass: 'src/example.com/frontend/styles/',
-        import_path: ['./src/example.com/frontend/vendor']
+        import_path: ['./src/example.com/frontend/vendor/bootstrap-sass-official/assets/stylesheets']
     },
     ae_extra: './src/example.com/frontend/',
     ae_yaml: {
@@ -103,6 +104,7 @@ gulp.task('minify-appjs', function () {
         }));
 
     return merge(appjs, viewjs)
+        .pipe(ngAnnotate())
         .pipe(concat("app.js"))
         .pipe(gulp.dest(paths.appjs.dest))
         .pipe(uglify())

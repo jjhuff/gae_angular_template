@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('ResetPasswordCtrl', ['$scope', '$location', '$stateParams', 'User', function ($scope, $location, $stateParams, User) {
+    .controller('ResetPasswordCtrl', function ($scope, $location, $stateParams, User) {
         $scope.promise = null;
         $scope.pass = {};
 
@@ -12,8 +12,8 @@ angular.module('app')
                 $scope.error = err.status;
             });
         }
-    }])
-    .controller('SendForgotPasswordCtrl', ['$scope', '$modalInstance', '$location', 'User', function($scope, $modalInstance, $location, User) {
+    })
+    .controller('SendForgotPasswordCtrl', function($scope, $modalInstance, $location, User) {
         // Nest this down a level to avoid issues with nextes Angular scopes
         $scope.forgot = {email:$scope.$parent.email};
         $scope.ok = function () {
@@ -28,4 +28,4 @@ angular.module('app')
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
-    }]);
+    });

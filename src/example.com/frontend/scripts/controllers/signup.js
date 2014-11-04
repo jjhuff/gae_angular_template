@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('SignUpCtrl', ['$scope', '$location', 'User', 'Config', function ($scope, $location, User, Config) {
+    .controller('SignUpCtrl', function ($scope, $location, User, Config) {
         $scope.promise = null;
         if (Config.showRegisterRandom) {
             $scope.randUser = function() {
@@ -24,4 +24,4 @@ angular.module('app')
             });
         }; //register
 
-    }]);
+    });

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('SignInCtrl', ['$scope', '$location', '$modal', 'User', function ($scope, $location, $modal, User) {
+    .controller('SignInCtrl', function ($scope, $location, $modal, User) {
 
         $scope.loginPromise = null;
 
@@ -23,4 +23,4 @@ angular.module('app')
                 scope: $scope
             });
         };
-    }]);
+    });

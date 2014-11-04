@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-.factory('User', ['$http', function($http){
+.factory('User', function($http) {
 
     var apiRoot = '/_/api/v1';
 
@@ -68,5 +68,4 @@ angular.module('app')
             return currentUser;
         }
     };
-}]);
-
+});
