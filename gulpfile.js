@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var size = require('gulp-size');
@@ -103,6 +104,7 @@ gulp.task('minify-appjs', function () {
         }));
 
     return merge(appjs, viewjs)
+        .pipe(ngAnnotate())
         .pipe(concat("app.js"))
         .pipe(gulp.dest(paths.appjs.dest))
         .pipe(uglify())

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('SettingsCtrl', ['$scope', '$location', 'User', function ($scope, $location, User) {
+    .controller('SettingsCtrl', function ($scope, $location, User) {
         $scope.pass = {};
         $scope.current_email = User.get().email;
         $scope.promise = null;
@@ -28,4 +28,4 @@ angular.module('app')
                 $scope.emailForm.error = err.status || "unknown";
             });
         }
-    }]);
+    });

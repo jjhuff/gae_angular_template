@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .controller('HeaderCtrl', ['$scope', '$location', 'Config', 'User', function ($scope, $location, Config, User) {
+    .controller('HeaderCtrl', function ($scope, $location, Config, User) {
         $scope.config = Config;
         $scope.isLoggedIn = User.isLoggedIn;
         $scope.user = User.get()
@@ -18,4 +18,4 @@ angular.module('app')
             return $location.path().indexOf(prefix) === 0;
         };
 
-    }]);
+    });
