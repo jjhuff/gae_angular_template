@@ -65,7 +65,7 @@ func (app *AppContext) handleIndex(w http.ResponseWriter, req *http.Request) {
 
 }
 
-var botsRegexp = regexp.MustCompile("(?i)googlebot|yahoo|bing|baidu|jeeves|facebook|twitter|linkedin|archive.org")
+var botsRegexp = regexp.MustCompile("(?i)googlebot|mediapartners-google|adsbot-google|yahoo|bing|baidu|jeeves|facebook|twitter|linkedin|archive.org")
 
 func shouldPreRender(req *http.Request) bool {
 	var ua = req.Header.Get("User-Agent")
