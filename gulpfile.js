@@ -10,7 +10,7 @@ var minifyHTML = require('gulp-minify-html');
 //var changed = require('gulp-changed');
 var compass = require('gulp-compass');
 var bowerFiles = require('main-bower-files');
-var filter = require('gulp-filter');
+var ignore = require('gulp-ignore');
 var filelog = require('gulp-filelog');
 var rev = require('gulp-rev');
 var ngHtml2Js = require("gulp-ng-html2js");
@@ -112,13 +112,14 @@ gulp.task('minify-appjs', function () {
 });
 
 gulp.task('minify-libjs', function () {
-    return gulp.src(bowerFiles()).pipe(filter([
-            '**/*.js',
-            '!bootstrap.js',
-            '!angular.js',
-            '!jquery.js',
+    return gulp.src(bowerFiles())
+        .pipe(ignore.include('**/*.js'))
+        .pipe(ignore.exclude([
+            '**/angular.js',
+            '**/jquery.js',
+            '**/bootstrap/*.js',
         ]))
-        //.pipe(filelog())
+        // .pipe(filelog())
         .pipe(concat("lib.js"))
         .pipe(gulp.dest(paths.libjs.dest))
         .pipe(uglify())
