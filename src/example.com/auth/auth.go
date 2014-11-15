@@ -92,16 +92,9 @@ func getSignedUserId(ctx appengine.Context, userId user.UserId, kind string) (st
 	var sig []byte
 	var err error
 
-	// v1.8.8 of the SDK has a broken SignBytes
-	if !appengine.IsDevAppServer() {
-		key, sig, err = appengine.SignBytes(ctx, []byte(val))
-		if err != nil {
-			return "", err
-		}
-	} else {
-		sig = []byte(val + "_abc")
-		certs, _ := appengine.PublicCertificates(ctx)
-		key = certs[0].KeyName
+	key, sig, err = appengine.SignBytes(ctx, []byte(val))
+	if err != nil {
+		return "", err
 	}
 
 	ret := val + sep + key + sep + base64.URLEncoding.EncodeToString(sig)
@@ -125,9 +118,7 @@ func verifySignedUserId(ctx appengine.Context, val, kind string, age time.Durati
 	timestamp := time.Unix(timestampInt, 0)
 	expires := time.Now().Add(age)
 	if timestamp.After(expires) {
-		if err != nil {
-			return 0, ErrInvalidCookie
-		}
+		return 0, ErrInvalidCookie
 	}
 
 	// Locate the certificate
@@ -143,16 +134,9 @@ func verifySignedUserId(ctx appengine.Context, val, kind string, age time.Durati
 	}
 
 	sigVal := strings.Join(valSplit[0:3], "|")
-	if !appengine.IsDevAppServer() {
-		err = cert.CheckSignature(x509.SHA256WithRSA, []byte(sigVal), sig)
-		if err != nil {
-			return 0, ErrInvalidCookie
-		}
-		// check sig
-	} else {
-		if !bytes.Equal(sig, []byte(sigVal+"_abc")) {
-			return 0, ErrInvalidCookie
-		}
+	err = cert.CheckSignature(x509.SHA256WithRSA, []byte(sigVal), sig)
+	if err != nil {
+		return 0, ErrInvalidCookie
 	}
 
 	return userId, nil
