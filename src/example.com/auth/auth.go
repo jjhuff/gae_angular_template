@@ -2,7 +2,6 @@ package auth
 
 import (
 	"appengine"
-	"bytes"
 	"code.google.com/p/go.crypto/bcrypt"
 	"crypto/x509"
 	"encoding/base64"
