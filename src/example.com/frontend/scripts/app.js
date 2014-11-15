@@ -59,18 +59,17 @@ app.run(function ($rootScope, $state, User) {
 
 // Intercept 401 errors and send to login page
 app.config(function ($httpProvider) {
-    $httpProvider.interceptors.push(function($q) {
+    $httpProvider.interceptors.push(function($q, $injector) {
         return {
             'response': function(response) {
                 return response;
             },
             'responseError': function(response) {
                 if (response.status === 401) {
-                    $injector.get('$state').$state.go('login');
-                    return $q.reject(response);
-                } else {
-                    return $q.reject(response);
+                    $injector.get('$state').go('login');
+                    // TODO: Do something to redirect back to $location.path
                 }
+                return $q.reject(response);
             }
         }
     });
