@@ -19,7 +19,7 @@ func TestBadCookie(t *testing.T) {
 	ctx := getAppEngineContext(t)
 	defer ctx.Close()
 
-	_, err := verifySignedUserId(ctx, "uw4rtgdfhg", authCookieKind, authCookieAge)
+	_, err := verifySignedUserId(ctx, "uw4rtgdfhg", authCookieKind)
 	assert.Equal(t, err, ErrInvalidCookie)
 }
 
@@ -28,16 +28,16 @@ func TestCookies(t *testing.T) {
 	ctx := getAppEngineContext(t)
 	defer ctx.Close()
 
-	cookieVal, err := getSignedUserId(ctx, testUserId, authCookieKind)
+	cookieVal, err := getSignedUserId(ctx, testUserId, authCookieKind, authCookieAge)
 	assert.NoError(t, err)
 	assert.NotEmpty(t, cookieVal)
 
-	userId, err := verifySignedUserId(ctx, cookieVal, authCookieKind, authCookieAge)
+	userId, err := verifySignedUserId(ctx, cookieVal, authCookieKind)
 	assert.NoError(t, err)
 	assert.Equal(t, userId, testUserId)
 
 	brokenCookieVal := "1" + cookieVal
-	userId, err = verifySignedUserId(ctx, brokenCookieVal, authCookieKind, authCookieAge)
+	userId, err = verifySignedUserId(ctx, brokenCookieVal, authCookieKind)
 	assert.Equal(t, err, ErrInvalidCookie)
 }
 

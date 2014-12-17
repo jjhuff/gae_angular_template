@@ -12,6 +12,10 @@ var (
 
 type UserId int64
 
+const (
+	InvalidUser UserId = 0
+)
+
 func (userId UserId) String() string {
 	return strconv.FormatInt(int64(userId), 10)
 }
